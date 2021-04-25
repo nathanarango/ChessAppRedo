@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     public static final boolean[] IS_DARK_SQUARE = fillDarkSquare();
     public static final String[] TILE_NAMES = fillTileNames();
 
-    private Board currentBoard;
+    private static Board currentBoard;
     private boolean promotionInProgress = false;
     private int promotionTile = -1;
     private Move promotionMove = null;
@@ -26,39 +26,39 @@ public class MainActivity extends AppCompatActivity {
     private static boolean[] fillDarkSquare() {
 
         final boolean[] isDark = new boolean[]{false, true, false, true, false, true, false, true,
-                                               true, false, true, false, true, false, true, false,
-                                               false, true, false, true, false, true, false, true,
-                                               true, false, true, false, true, false, true, false,
-                                               false, true, false, true, false, true, false, true,
-                                               true, false, true, false, true, false, true, false,
-                                               false, true, false, true, false, true, false, true,
-                                               true, false, true, false, true, false, true, false,};
+                true, false, true, false, true, false, true, false,
+                false, true, false, true, false, true, false, true,
+                true, false, true, false, true, false, true, false,
+                false, true, false, true, false, true, false, true,
+                true, false, true, false, true, false, true, false,
+                false, true, false, true, false, true, false, true,
+                true, false, true, false, true, false, true, false,};
         return isDark;
     }
 
     private static int[] fillTileIds() {
 
         final int[] ids = new int[]{R.id.a8, R.id.b8, R.id.c8, R.id.d8, R.id.e8, R.id.f8, R.id.g8, R.id.h8,
-                                    R.id.a7, R.id.b7, R.id.c7, R.id.d7, R.id.e7, R.id.f7, R.id.g7, R.id.h7,
-                                    R.id.a6, R.id.b6, R.id.c6, R.id.d6, R.id.e6, R.id.f6, R.id.g6, R.id.h6,
-                                    R.id.a5, R.id.b5, R.id.c5, R.id.d5, R.id.e5, R.id.f5, R.id.g5, R.id.h5,
-                                    R.id.a4, R.id.b4, R.id.c4, R.id.d4, R.id.e4, R.id.f4, R.id.g4, R.id.h4,
-                                    R.id.a3, R.id.b3, R.id.c3, R.id.d3, R.id.e3, R.id.f3, R.id.g3, R.id.h3,
-                                    R.id.a2, R.id.b2, R.id.c2, R.id.d2, R.id.e2, R.id.f2, R.id.g2, R.id.h2,
-                                    R.id.a1, R.id.b1, R.id.c1, R.id.d1, R.id.e1, R.id.f1, R.id.g1, R.id.h1};
+                R.id.a7, R.id.b7, R.id.c7, R.id.d7, R.id.e7, R.id.f7, R.id.g7, R.id.h7,
+                R.id.a6, R.id.b6, R.id.c6, R.id.d6, R.id.e6, R.id.f6, R.id.g6, R.id.h6,
+                R.id.a5, R.id.b5, R.id.c5, R.id.d5, R.id.e5, R.id.f5, R.id.g5, R.id.h5,
+                R.id.a4, R.id.b4, R.id.c4, R.id.d4, R.id.e4, R.id.f4, R.id.g4, R.id.h4,
+                R.id.a3, R.id.b3, R.id.c3, R.id.d3, R.id.e3, R.id.f3, R.id.g3, R.id.h3,
+                R.id.a2, R.id.b2, R.id.c2, R.id.d2, R.id.e2, R.id.f2, R.id.g2, R.id.h2,
+                R.id.a1, R.id.b1, R.id.c1, R.id.d1, R.id.e1, R.id.f1, R.id.g1, R.id.h1};
         return ids;
     }
 
     private static String[] fillTileNames() {
 
         final String[] names = new String[]{"a8", "b8", "c8", "d8", "e8", "f8", "g8", "h8",
-                                            "a7", "b7", "c7", "d7", "e7", "f7", "g7", "h7",
-                                            "a6", "b6", "c6", "d6", "e6", "f6", "g6", "h6",
-                                            "a5", "b5", "c5", "d5", "e5", "f5", "g5", "h5",
-                                            "a4", "b4", "c4", "d4", "e4", "f4", "g4", "h4",
-                                            "a3", "b3", "c3", "d3", "e3", "f3", "g3", "h3",
-                                            "a2", "b2", "c2", "d2", "e2", "f2", "g2", "h2",
-                                            "a1", "b1", "c1", "d1", "e1", "f1", "g1", "h1",};
+                "a7", "b7", "c7", "d7", "e7", "f7", "g7", "h7",
+                "a6", "b6", "c6", "d6", "e6", "f6", "g6", "h6",
+                "a5", "b5", "c5", "d5", "e5", "f5", "g5", "h5",
+                "a4", "b4", "c4", "d4", "e4", "f4", "g4", "h4",
+                "a3", "b3", "c3", "d3", "e3", "f3", "g3", "h3",
+                "a2", "b2", "c2", "d2", "e2", "f2", "g2", "h2",
+                "a1", "b1", "c1", "d1", "e1", "f1", "g1", "h1",};
         return names;
     }
 
@@ -198,8 +198,6 @@ public class MainActivity extends AppCompatActivity {
                     else {
                         currentBoard.makeMove(possibleMove);
 
-                        updateDisplay(currentBoard);
-
                         currentBoard = new Board(currentBoard.getPieces(), 1 - currentBoard.getColorToMove(),
                                 currentBoard.getEnPassantTile(), currentBoard.getWk(), currentBoard.getWq(),
                                 currentBoard.getBk(), currentBoard.getBq());
@@ -210,6 +208,15 @@ public class MainActivity extends AppCompatActivity {
                             } else {
                                 displayText("White Wins!");
                             }
+                        }
+                        else{
+                            Search search = new Search(currentBoard);
+                            Move computerMove = search.searchMoves();
+                            currentBoard.makeMove(computerMove);
+                            updateDisplay(currentBoard);
+                            currentBoard = new Board(currentBoard.getPieces(), 1 - currentBoard.getColorToMove(),
+                                    currentBoard.getEnPassantTile(), currentBoard.getWk(), currentBoard.getWq(),
+                                    currentBoard.getBk(), currentBoard.getBq());
                         }
 
                         continueTurn = false;
@@ -237,6 +244,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+
+        //int score = Evaluation.evaluate(currentBoard);
+        //displayText(String.valueOf(score));
 
 /*
         int moveCount = countMoves(3, 0);
@@ -267,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
         return moveCount;
     }
 
-    ArrayList<Move> getAllMoves(int color){
+    static ArrayList<Move> getAllMoves(int color){
 
         ArrayList<Move> allLegalMoves = new ArrayList<Move>();
 
@@ -284,19 +294,15 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<Piece> newBoardPieceArray = new ArrayList<Piece>();
 
-        newBoardPieceArray.add(new King(39, 1));
-        newBoardPieceArray.add(new Rook(31, 1));
-        newBoardPieceArray.add(new Pawn(37, 1));
-        newBoardPieceArray.add(new Pawn(19, 1));
-        newBoardPieceArray.add(new Pawn(10, 1));
+        newBoardPieceArray.add(new King(4, 1));
+        newBoardPieceArray.add(new Rook(0, 1));
+        newBoardPieceArray.add(new Rook(7, 1));
 
-        newBoardPieceArray.add(new King(24, 0));
-        newBoardPieceArray.add(new Pawn(25, 0));
-        newBoardPieceArray.add(new Rook(33, 0));
-        newBoardPieceArray.add(new Pawn(52, 0));
-        newBoardPieceArray.add(new Pawn(54, 0));
+        newBoardPieceArray.add(new King(60, 0));
+        newBoardPieceArray.add(new Rook(63, 0));
+        newBoardPieceArray.add(new Rook(56, 0));
 
-        Board board = new Board(newBoardPieceArray, 0, -1, 0, 0, 0, 0);
+        Board board = new Board(newBoardPieceArray, 0, -1, 1, 1, 1, 1);
 
         currentBoard = board;
 
