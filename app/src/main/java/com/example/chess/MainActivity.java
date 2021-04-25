@@ -198,6 +198,8 @@ public class MainActivity extends AppCompatActivity {
                     else {
                         currentBoard.makeMove(possibleMove);
 
+                        updateDisplay(currentBoard);
+
                         currentBoard = new Board(currentBoard.getPieces(), 1 - currentBoard.getColorToMove(),
                                 currentBoard.getEnPassantTile(), currentBoard.getWk(), currentBoard.getWq(),
                                 currentBoard.getBk(), currentBoard.getBq());
